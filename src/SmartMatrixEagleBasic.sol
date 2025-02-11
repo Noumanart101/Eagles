@@ -248,12 +248,16 @@ contract SmartMatrixEagleBasic is ReentrancyGuard {
         id1 = msg.sender;
         users[msg.sender].id = 1;
         users[msg.sender].referrer = address(0);
-        users[msg.sender].partnersCount = 0;
+        users[msg.sender].partnersCount = uint8(0);
         idToAddress[1] = msg.sender;
+
+        // Activate all X1 and X2 levels for id1 at deployment
 
         for (uint8 i = 1; i <= LAST_LEVEL; i++) {
             users[msg.sender].activeX1Levels[i] = true;
             users[msg.sender].activeX2Levels[i] = true;
+            users[msg.sender].x1Matrix[i].currentReferrer = address(0);
+            users[msg.sender].x2Matrix[i].currentReferrer = address(0);
         }
 
         userIds[1] = msg.sender;
